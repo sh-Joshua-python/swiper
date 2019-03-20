@@ -5,6 +5,7 @@ from common import errors,keys
 from django.core.cache import cache
 # Create your views here.
 from user.models import User
+from user.forms import ProfileForm
 
 
 def get_vcode(request):
@@ -41,3 +42,19 @@ def check_vcode(request):
 
     else:
         return render_json(code=errors.PHONENUM_ERR)
+
+def get_profile(request):
+    ''''''
+    profile_dict = request.user.profile.to_dict()
+    return render_json(profile_dict)
+
+def set_profile(request):
+    ''''''
+    form = ProfileForm(request.POST)
+    if form.is_valid():
+        profile = form.save(commit=False)
+        profile.id = request.session['uid']
+        profile.save()
+        return render_json()
+    else:
+        return render_json(form.errors,errors.PROFILE_ERR)
