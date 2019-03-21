@@ -1,10 +1,14 @@
 import random
 import re
+import os
 import requests
 
+from django.conf import settings
 from django.core.cache import cache
 from common import constant,keys
+from worker import celery_app
 from swiper import config
+from libs.qncloud import qn_upload
 
 
 def is_phonenum(phonenum):
@@ -35,7 +39,7 @@ def sent_sms(phonenum, vcode):
 def send_vcode(phonenum):
     '''发送验证码'''
     vcode = get_random_code(4) #产生4位随机验证码
-    # print('===============',vcode)#测试用
+    print('===============',vcode)#测试用
     response = sent_sms(phonenum,vcode)#发送验证码
 
     #检查发送状态是否成功
@@ -46,3 +50,24 @@ def send_vcode(phonenum):
             cache.set(key,vcode,180)
             return True
     return False
+
+def save_upload_file(uid,upload_file):
+    '''保存上传文件'''
+    filename = 'Avator-%s' % uid
+    fullpath = os.path.join(settings.BASE_DIR,settings.MEDIA_ROOT,filename)
+    with open(fullpath,'wb')as fp:
+        for chunk in upload_file.chunks():
+            fp.write(chunk)
+    return fullpath,filename
+
+
+@celery_app.task
+def save_avator(user,avator_file):
+    '''上传用户头像'''
+    #将文件保存到本地
+    fullpath,filename = save_upload_file(user.id,avator_file)
+    #将文件上传至七牛云
+    _,avatar_url = qn_upload(filename,fullpath)
+    #将URL保存到 UserModel
+    user.avatar = avatar_url
+    user.save()

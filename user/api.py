@@ -13,7 +13,7 @@ def get_vcode(request):
     if logics.is_phonenum(phonenum):
         #发送验证码
         logics.send_vcode(phonenum)
-        # print('=========')
+        print('=========')
         return render_json()
     else:
         return render_json(code=errors.PHONENUM_ERR)
@@ -58,3 +58,9 @@ def set_profile(request):
         return render_json()
     else:
         return render_json(form.errors,errors.PROFILE_ERR)
+
+def upload_avatar(request):
+    '''上传个人形象图片'''
+    avatar = request.FILES.get('avatar')
+    logics.save_avator.delay(request.user,avatar)
+    return render_json()

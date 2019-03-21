@@ -3,7 +3,7 @@
 '''
 
 
-# 云之讯短信平台配置
+'''云之讯短信平台配置'''
 YZX_SMS_API = 'https://open.ucpaas.com/ol/sms/sendsms'
 YZX_SMS_ARGS = {
     "sid": "b2e2da3bb15456b04864ffd37f41de43",
@@ -13,3 +13,10 @@ YZX_SMS_ARGS = {
     "param": None,
     "mobile": None,
 }
+
+
+'''七牛云配置'''
+QN_ACCESS_KEY = 'vr1E_qoDna-Fw7Jcbm6-__jwwznKE-r6BpP3AAXo'
+QN_SECRET_KEY = 'CoWZS473aSjxhJ15fT6GaAIkvlnKJ6cNv5wTonmA'
+QN_BUCKET = 'swiper'
+QN_BASEURL = 'http://popgq4v1l.bkt.clouddn.com'
