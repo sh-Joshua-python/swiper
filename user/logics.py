@@ -6,9 +6,9 @@ import requests
 from django.conf import settings
 from django.core.cache import cache
 from common import constant,keys
+from libs.qncloud import qn_upload
 from worker import celery_app
 from swiper import config
-from libs.qncloud import qn_upload
 
 
 def is_phonenum(phonenum):

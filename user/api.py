@@ -1,7 +1,8 @@
 
 from user import logics
 from libs.http import render_json
-from common import errors,keys
+from common import errors
+from common import keys
 from django.core.cache import cache
 # Create your views here.
 from user.models import User
@@ -16,6 +17,7 @@ def get_vcode(request):
         print('=========')
         return render_json()
     else:
+        print('====时报=====')
         return render_json(code=errors.PHONENUM_ERR)
 
 
