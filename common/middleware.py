@@ -7,8 +7,8 @@ from common import errors
 
 class AuthMiddleware(MiddlewareMixin):
     AUTH_URL_WHITE_LIST = [
-        '/api/user/get_vcode',
-        '/api/user/check_vcode',
+        '/api/user/get_vcode/',
+        '/api/user/check_vcode/',
     ]
 
     def process_request(self,requset):

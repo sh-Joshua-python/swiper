@@ -1,7 +1,7 @@
 from django.db import models
 
 from libs.orm import ModelMinxi
-
+# from social.models import Swiped
 class User(models.Model,ModelMinxi):
     SEX = (
         ('male', '男性'),
@@ -41,6 +41,14 @@ class User(models.Model,ModelMinxi):
         if not hasattr(self,'_profile'):
             self._profile,_ = Profile.objects.get_or_create(id=self.id)
         return self._profile
+
+    # @property
+    # def swiped(self):
+    #     if not hasattr(self,'_swiped'):
+    #         self._swiped,_ = Swiped.objects.get_or_create(uid=self.id)
+    #     return self._swiped
+
+
 
 
 class Profile(models.Model,ModelMinxi):

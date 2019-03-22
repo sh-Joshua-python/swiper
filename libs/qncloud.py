@@ -17,4 +17,4 @@ def qn_upload(filename,filepath):
         url = urljoin(config.QN_BASEURL,filename)
         return True,url
     else:
-        return False,''
+        return False, ''

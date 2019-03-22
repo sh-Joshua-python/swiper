@@ -55,7 +55,8 @@ def save_upload_file(uid,upload_file):
     '''保存上传文件'''
     filename = 'Avator-%s' % uid
     fullpath = os.path.join(settings.BASE_DIR,settings.MEDIA_ROOT,filename)
-    with open(fullpath,'wb')as fp:
+    print('------图片存储--------')
+    with open(fullpath,'wb') as fp:
         for chunk in upload_file.chunks():
             fp.write(chunk)
     return fullpath,filename

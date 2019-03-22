@@ -1,9 +1,9 @@
+from django.core.cache import cache
 
-from user import logics
 from libs.http import render_json
 from common import errors
 from common import keys
-from django.core.cache import cache
+from user import logics
 # Create your views here.
 from user.models import User
 from user.forms import ProfileForm
@@ -14,10 +14,10 @@ def get_vcode(request):
     if logics.is_phonenum(phonenum):
         #发送验证码
         logics.send_vcode(phonenum)
-        print('=========')
+        # print('=========')
         return render_json()
     else:
-        print('====时报=====')
+        # print('====时报=====')
         return render_json(code=errors.PHONENUM_ERR)
 
 
@@ -64,5 +64,6 @@ def set_profile(request):
 def upload_avatar(request):
     '''上传个人形象图片'''
     avatar = request.FILES.get('avatar')
+    print('-------FILES------------')
     logics.save_avator.delay(request.user,avatar)
     return render_json()
