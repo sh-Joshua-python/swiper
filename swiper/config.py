@@ -2,6 +2,8 @@
 程序逻辑的配置，以及第三方平台的配置
 '''
 
+# 每天反悔次数上限
+REWIND_LIMIT = 3
 
 '''云之讯短信平台配置'''
 YZX_SMS_API = 'https://open.ucpaas.com/ol/sms/sendsms'

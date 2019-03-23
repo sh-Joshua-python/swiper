@@ -2,6 +2,7 @@
 from libs.http import render_json
 from social import logics
 from social.models import Swiped
+from user.models import User
 
 def get_rmcds(request):
     '''获取推荐列表'''
@@ -27,3 +28,15 @@ def superlike(request):
 def friends(request):
     friends_data = [friend.to_dict() for friend in request.user.friends]
     return render_json(friends_data)
+
+def rewind(request):
+    '''反悔'''
+    logics.rewind(request.user)
+    return render_json()
+
+def show_liked_me(request):
+    '''查看喜欢过我的人'''
+    liked_me_uid_list = Swiped.who_liked_me(request.user.id)
+    liked_me_users = User.objects.filter(id__in=liked_me_uid_list)
+    result =[user.to_dict() for user in liked_me_users]
+    return render_json(result)

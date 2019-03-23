@@ -2,6 +2,8 @@ from django.db import models
 
 from libs.orm import ModelMinxi
 # from social.models import Swiped
+from social.models import Friend
+
 class User(models.Model,ModelMinxi):
     SEX = (
         ('male', '男性'),
@@ -47,6 +49,11 @@ class User(models.Model,ModelMinxi):
     #     if not hasattr(self,'_swiped'):
     #         self._swiped,_ = Swiped.objects.get_or_create(uid=self.id)
     #     return self._swiped
+    @property
+    def friends(self):
+        '''所有的好友'''
+        fid_list = Friend.friends_id_list(self.id)
+        return User.objects.filter(id__in=fid_list)
 
 
 

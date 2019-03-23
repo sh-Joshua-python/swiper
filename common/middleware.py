@@ -23,6 +23,13 @@ class AuthMiddleware(MiddlewareMixin):
                 requset.user = User.objects.get(id=uid)
                 return
             except User.DoesNotExist:
-                return render_json(code=errors.USER_NOT_EXIST)
+                return render_json(code=errors.UserNotExist.code)
         else:
-            return render_json(code=errors.LOGIN_REQIRED)
+            return render_json(code=errors.LogicError.code)
+
+
+class LogicErrMiddleware(MiddlewareMixin):
+    def process_exception(self,request,exception):
+        if isinstance(exception,errors.LogicError):
+            data = exception.data or str(exception)
+            return render_json(data=data,code=exception.code)
