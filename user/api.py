@@ -59,7 +59,7 @@ def set_profile(request):
         profile.save()
         return render_json()
     else:
-        return render_json(form.errors,errors.PROFILE_ERR)
+        return render_json(form.errors)
 
 def upload_avatar(request):
     '''上传个人形象图片'''

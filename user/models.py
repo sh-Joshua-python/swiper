@@ -3,6 +3,7 @@ from django.db import models
 from libs.orm import ModelMinxi
 # from social.models import Swiped
 from social.models import Friend
+from vip.models import Vip
 
 class User(models.Model,ModelMinxi):
     SEX = (
@@ -26,6 +27,8 @@ class User(models.Model,ModelMinxi):
     birth_day = models.IntegerField(default=1, verbose_name='出生日')
     avatar = models.CharField(max_length=256, verbose_name='个人形象')
     location = models.CharField(max_length=8, choices=LOCATION, verbose_name='常居地')
+
+    vip_id = models.IntegerField(verbose_name='用户对应的VIP ID')
 
     # def to_dict(self):
     #     return {
@@ -55,7 +58,12 @@ class User(models.Model,ModelMinxi):
         fid_list = Friend.friends_id_list(self.id)
         return User.objects.filter(id__in=fid_list)
 
-
+    @property
+    def vip(self):
+        '''用户的VIP数据'''
+        if not hasattr(self,'_vip'):
+            self._vip = Vip.objects.get(self.vip_id)
+        return self._vip
 
 
 class Profile(models.Model,ModelMinxi):
