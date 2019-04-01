@@ -27,6 +27,7 @@ def gen_logic_err(name, code):
 
 
 PhonenumErr = gen_logic_err('PhonenumErr', 1000)
+
 VcodeErr = gen_logic_err('VcodeErr', 1001)
 LoginReqired = gen_logic_err('LoginReqired', 1002)
 UserNotExist = gen_logic_err('UserNotExist', 1003)

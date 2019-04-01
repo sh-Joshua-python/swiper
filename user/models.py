@@ -1,11 +1,11 @@
 from django.db import models
 
-from libs.orm import ModelMinxi
+# from libs.orm import ModelMinxi
 # from social.models import Swiped
 from social.models import Friend
 from vip.models import Vip
 
-class User(models.Model,ModelMinxi):
+class User(models.Model):
     SEX = (
         ('male', '男性'),
         ('female', '女性'),
@@ -66,7 +66,7 @@ class User(models.Model,ModelMinxi):
         return self._vip
 
 
-class Profile(models.Model,ModelMinxi):
+class Profile(models.Model):
     SEX = (
         ('male','男性'),
         ('female','女性'),
